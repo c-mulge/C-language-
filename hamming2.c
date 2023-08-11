@@ -19,8 +19,22 @@ int main()
     {
         scanf("%d",&a[i]);
     }
-        
-        printf("\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
+
+    int choice;
+    printf("Select parity type:\n");
+    printf("1. Even Parity\n");
+    printf("2. Odd Parity\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    
+     if (choice != 1 && choice != 2)
+    {
+        printf("Invalid choice.\n");
+        return 1;
+    }
+    
+    int evenParity = (choice == 1);
+
 
        for(i=0,j=0;i<l;i++)
     {
@@ -36,6 +50,8 @@ int main()
         b[j]=a[i];
         j++;
     }
+
+    
         
     printf("Length of Hamming code: %d bits\n",o=j);
     printf("Number of Parity Bits: %d \n",n=o-l);
@@ -75,7 +91,7 @@ int main()
     }
 
 
-    printf("\nTransmitter:   ");
+    printf("\nTransmitter: ");
     for(i=0;i<o;i++)
     {
         printf("%d ",b[i]);
