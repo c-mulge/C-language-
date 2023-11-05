@@ -1,65 +1,46 @@
+//Sorting of Linked list using Single linked list
+
 #include<stdio.h>
 #include<stdlib.h>
 #include "linkedlist.h"
 
-// void sort(struct node *h)
-// {
-    // struct node *q=h->next;
-    // struct node *p=q->next;
-    // struct node *r=h;
-    // struct node *tail=NULL;
-
-//     while(h->next!=tail)
-//     {
-//         while(1)
-//         {
-//             if(p->info<q->info)
-//             {
-//                 r->next=p;
-//                 q->next=p->next;
-//                 p->next=q;
-//             }
-//             r=p;
-//             p=q->next;
-//             q->next=q;
-//             if(p==h||p==tail)
-//             {
-//                 tail=q;
-//                 break;
-//             }
-//         }//while(1)
-//         q=h->next;
-//         p=q->next;
-//         r=h;
-//     }
-// }
-
-void sort(struct node *h) {
-        struct node *q=h->next;
-    struct node *p=q->next;
+void sort(struct node *h)
+{
     struct node *r=h;
+    struct node *q=h->next;
+    struct node *p=q->next;
     struct node *tail=NULL;
-
-    while (h->next != tail) {
-        q = h->next;
-        p = q->next;
-        r = h;
-
-        while (p != tail) {
-            if (q->info > p->info) {
-                r->next = p;
-                q->next = p->next;
-                p->next = q;
-                q = p;
+    while(h->next!=tail)
+    {
+        while(1)
+        {
+            if(q->info > p->info)
+            {
+                r->next=p;
+                q->next=p->next;
+                p->next=q;
+            
+                r=p;
+                p=q->next;
             }
-            r = p;
-            p = q->next;
-        }
-
-        tail = q;
+            else
+            {
+                r=q;
+                q=q->next;
+                p=q->next;  
+            }
+            if(p==tail)
+            {
+                tail=q;
+                return;
+            }
+         }
+         r=h;
+         q=h->next;
+         p=q->next;
+         
     }
 }
-
 
 int main()
 {
@@ -78,10 +59,11 @@ int main()
     display(list);
 
     printf("\nSorted list is: \n");
-    sort(list);
-
+    for(i=1;i<n-1;i++)
+    { 
+        sort(list);
+    }
     display(list);
-
     freenode(list);
     return 0;
 }
