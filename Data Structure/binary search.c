@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #define maxsz 50
 
-int binary(int a[],int lb,int ub,int key)
+int binary(int a[],int lb,int ub,int key)     //for ascending order
 {
     int mid;
     while(lb<=ub)
