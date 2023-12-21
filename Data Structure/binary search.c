@@ -3,101 +3,65 @@
 #include<stdlib.h>
 #define maxsz 50
 
-int binary(int arr[],int size,int element)
+int binary(int a[],int lb,int ub,int key)
 {
-    int low,mid,high;
-    low=0;
-    high=size-1;
-
-    while(low<=high)
+    int mid;
+    while(lb<=ub)
     {
-        mid=(low+high)/2;
-        if(arr[mid]==element)
-        {
+        mid=(lb+ub)/2;
+        if(a[mid]==key)
             return mid;
-        }
-        if(arr[mid]<element)
-        {
-            low=mid+1;
-        }
-        else{
-            high=mid-1;
-        }
+        else if(a[mid]>key)
+                ub=mid-1;
+            else
+                lb=mid+1;
     }
     return -1;
 }
 
-void bubblesort(int a[],int n)
+int main() 
 {
-    int temp;
-    int i,j,swapping=1;
-        for(i=1;i<n && swapping;i++)            // swapping=1 means swap
-        {                                       // swapping = 0 means no swap
-            swapping=0;
-            for(j=0;j<n-i;j++)
-            {
-                if(a[j]>a[j+1])             //change the sign to make the code in descending order
-                {
-                    swapping=1;           // if it is true then swapping is necessary
-                    temp=a[j];
-                    a[j]=a[j+1];
-                    a[j+1]=temp;
-                }
-            }
-        }
-}
-
-int main()
-{
-    int choice;
-    int arr[maxsz];
-    int size,element,index;
-    printf("Size of array: \n");
-    scanf("%d",&size);
-    printf("Enter %d elements: \n",size);
-    for (int i = 0; i < size; i++)
+    int a[maxsz];
+    int n;
+    printf("Size of array: ");
+    scanf("%d",&n);
+    printf("Enter %d numbers: ",n);
+    for(int i=0; i<n; i++)
     {
-        scanf("%d",&arr[i]);
+        scanf("%d",&a[i]);
     }
-    
-    while(1)
+    int i,j;
+    int hold;              
+    for (i = 1; i < n; i++) 
     {
-        printf("\nOperations are: ");
-        printf("\n1.Sort Array");
-        printf("\n2.Find element");
-        printf("\n3.Exit");
-        printf("\nEnter your choice: ");
-        scanf("%d",&choice);
-
-        switch(choice)
+        hold = a[i];
+        for(j = i - 1; j >= 0 && a[j] > hold; j--)
         {
-        case 1: 
-            bubblesort(arr,size);
-            printf("Sorted: \n");
-            for(int i=0;i<size;i++)
-            {
-                printf("%d ",arr[i]);
-            }
-            break;
-        case 2:
-            printf("Enter element to find: ");
-            scanf("%d",&element);
-            index=binary(arr,size,element);
-            if(index==-1)
-            {
-                printf("The %d element did not found in the array.\n",element);
-            }
-            else
-            {
-                printf("The %d element is at %d index \n",element,index);
-            }
-            break;
-        case 3:
-            exit(1);
-            break;
-        default:
-            printf("Invalid choice");
+            a[j + 1] = a[j];
         }
+            a[j + 1] = hold;
+    }
+
+    printf("Sorted: \n");
+            for(int i=0;i<n;i++)
+            {
+                printf("%d ",a[i]);
+            }
+
+    int key;
+
+    printf("\nEnter the element to search: ");
+    scanf("%d", &key);
+
+    int result = binary(a, 0, n - 1, key);
+
+    if (result != -1) 
+    {
+        printf("Element %d found at index %d.\n", key, result);
+    } 
+    else 
+    {
+        printf("Element %d not found in the array.\n", key);
     }
     return 0;
 }
