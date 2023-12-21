@@ -28,9 +28,9 @@ int binary(int a[],int ub,int lb,int key)         //for descending order
         if(a[mid]==key)
             return mid;
         else if(a[mid]>key)
-                ub=mid-1;
+                ub=mid+1;
             else
-                lb=mid+1;
+                lb=mid-1;
     }
     return -1;
 }
