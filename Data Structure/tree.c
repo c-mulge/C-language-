@@ -35,7 +35,7 @@ int main()
     root->left=getnode(4);
     root->right=getnode(6);
 
-    printf("In-Order Display: ");
+    printf("Display: ");
     display(root);
     printf("\n");
     return 0;
