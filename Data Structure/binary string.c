@@ -13,60 +13,86 @@ int binary(char *a[],int lb,int ub,char key[])
     mid=(lb+ub)/2;
     if(strcmp(a[mid],key)==0)
         return mid;
-    else if(strcmp(a[mid],key)<0)
+    else if(strcmp(a[mid],key)>0)
         return binary(a,lb,mid-1,key);
     else
         return binary(a,mid+1,ub,key);
 }
 
-int main()
+void display(char *a[],int n)
 {
-    //char *a[]={0};
-    char line[maxsz];
-    int n;
-    printf("Size of Array: ");
-    scanf("%d",&n);
-    char **a = (char **)malloc(sizeof(char *) * n);
-    printf("Enter %d strings:\n", n);
-    for (int i = 0; i < n; i++) 
+    int i;
+    for(i=0;i<n;i++)
     {
-        scanf("%s", line);
-        int len=strlen(line);
-        a[i]=(char *)malloc(sizeof(char *)*len+1);
-        strcpy(a[i],line);
+        printf("%s\n",a[i]);
     }
-    // int i,j;
-    // char *hold;              
-    // for (i = 1; i < n; i++) 
-    // {
-    //     hold = a[i];
-    //     for(j = i - 1; j >= 0 && strcmp(a[j], hold)>0; j--)        //change sign to a[j] < hold
-    //     {
-    //         a[j + 1] = a[j];
-    //     }
-    //         a[j + 1] = hold;
-    // }
-
-    char key[maxsz];
-    printf("Enter the string to search: ");
-    scanf("%s", key);
-
-    int result = binary(a, 0, n - 1, key);
-
-    if (result != -1) {
-        printf("String %s found at index %d.\n", key, result);
-    } else {
-        printf("String %s not found in the array.\n", key);
-    }
-    for (int i = 0; i < n; i++) 
-    {
-        free(a[i]);
-    }
-    free(a);
-
-    return 0;
 }
 
+void insert(char *a[],int n)
+{
+    int i,j;
+    char *hold;
+    for(i=0;i<n;i++)
+    {
+        hold=a[i];
+        for(j=i-1;j>=0 && strcmp(a[j],hold)>0;j--)
+            a[j+1]=a[j];
+        a[j+1]=hold;
+    }
+}
 
-
+int main()
+{
+    int choice;
+    char *a[maxsz]={0};
+    char line[maxsz];
+    char key[maxsz];
+    int n;
+    while(1)
+    {
+        printf("\nOpertaions are: ");
+        printf("\n1.Insert");
+        printf("\n2.Serach");
+        printf("\n3.Display");
+        printf("\n4.Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                printf("Size of Array: ");
+                scanf("%d",&n);
+                printf("Enter %d strings:\n", n);
+                for (int i = 0; i < n; i++) 
+                {
+                    scanf("%s", line);
+                    int len=strlen(line);
+                    a[i]=(char *)malloc((sizeof(char *)*len)+1);
+                    strcpy(a[i],line);
+                }
+                insert(a,n);
+                break;
+            case 2:
+                printf("Enter string to search: ");
+                scanf("%s",key);
+                int res=binary(a,0,n-1,key);
+                if(res!=-1)
+                {
+                    printf("\nThe %s is at %d index.",key,res);
+                }
+                else
+                    printf("\nThe %s is not in the given array.",key);
+                break;
+            case 3:
+                printf("\nThe elements are: \n");
+                display(a,n);
+                break;
+            case 4:
+                exit(1);
+                break;
+            default:
+                printf("Invalid choice!!!");
+        }
+    }return 0;
+}
 
