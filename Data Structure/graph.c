@@ -1,6 +1,6 @@
-//Graph- arr implementation
+// Graph- arr implementation
 
-#include<stdio.h>
+#include <stdio.h>
 #define maxsz 50
 int main()
 {
@@ -8,22 +8,35 @@ int main()
     int n;
     printf("Enter size: ");
     scanf("%d", &n);
-    printf("Enter %d number: \n",n);
-    for(int i=0; i<n; i++)
+    printf("Enter %d number: \n", n);
+    for (int i = 0; i < n; i++)
     {
-        for(int j=0;j<n;j++)
+        for (int j = 0; j < n; j++)
         {
-            scanf("%d",&g[i][j]);
+            scanf("%d", &g[i][j]);
         }
     }
 
-    printf("Number's are: \n");
-    for(int i=0; i<n; i++)
+    int count;
+    printf("Out degree: \n");
+    for (int i = 0; i < n; i++)
     {
-        for(int j=0;j<n;j++)
-        {
-            printf("%d \t",g[i][j]);
-        }
+        count = 0;
+        for (int j = 0; j < n; j++)
+            // if(g[i][j]!=0)
+            count += g[i][j];
+        printf("%d: %d \n", i, count);
+        printf("\n");
+    }
+
+    printf("In degree: \n");
+    for (int i = 0; i < n; i++)
+    {
+        count = 0;
+        for (int j = 0; j < n; j++)
+            // if(g[j][i]!=0)
+            count += g[j][i];
+        printf("%d: %d \n", i, count);
         printf("\n");
     }
     return 0;
