@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define maxsz 100
-struct root
+struct node
 {
     struct node *left;
     int info;
@@ -65,7 +65,7 @@ struct node *bst(int a[], int n)
                     p = p->right;
                 else
                 {
-                    setright(p, a[1]);
+                    setright(p, a[i]);
                     break;
                 }
             }
@@ -75,7 +75,7 @@ struct node *bst(int a[], int n)
                     p = p->left;
                 else
                 {
-                    setright(p, a[1]);
+                    setleft(p, a[i]);
                     break;
                 }
             }
@@ -186,15 +186,57 @@ int main()
         scanf("%d", &choice);
         switch (choice)
         {
-            case 1;
-                printf("Size of array: ");
-                scanf("%d",&n);
-                printf("Enter elements: ");
-                for(i=0;i<n;i++){
-                    scanf("%d",&a[i]);
-                }
-                root=bst(a,n);
-                break;
+        case 1:
+            printf("Size of array: ");
+            scanf("%d", &n);
+            printf("Enter elements: ");
+            for (i = 0; i < n; i++)
+            {
+                scanf("%d", &a[i]);
+            }
+            root = bst(a, n);
+            break;
+        case 2:
+            printf("Preorder: ");
+            preorder(root);
+            break;
+        case 3:
+            printf("Inorder: ");
+            inorder(root);
+            break;
+        case 4:
+            printf("Postorder: ");
+            postorder(root);
+            break;
+        case 5:
+            printf("Reverse: ");
+            rev(root);
+            break;
+        case 6:
+            printf("Enter the element to search: ");
+            scanf("%d", &key);
+            res = search(root, key);
+            if (res != NULL)
+                printf("Elememt %d is present\n", key);
+            else
+                printf("Elememt is not present\n");
+            break;
+        case 7:
+            printf("Leaf Count: %d", leafcount(root));
+            break;
+        case 8:
+            printf("Non Leaf Count: %d", non_leafcount(root));
+            break;
+        case 9:
+            printf("Total Node Present in the Tree: %d", total(root));
+            break;
+        case 10:
+            exit(1);
+            break;
+        default:
+            printf("Invalid Choice!");
+            break;
         }
     }
+    return 0;
 }
