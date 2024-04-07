@@ -1,3 +1,5 @@
+// seprate chaining
+
 #include <stdio.h>
 #include <stdlib.h>
 #define maxsz 50
@@ -19,23 +21,36 @@ struct edge *getnode(int val)
 struct edge *addedge(struct edge *G[], int num)
 {
     int i = 0;
-    if (G[num % 10] == 0)
+    if (G[num % 10] == NULL)
     {
         return getnode(num);
     }
+
     struct edge *p = G[num % 10];
+    struct edge *prev = NULL; // To keep track of the previous node
     struct edge *temp = getnode(num);
-    while (p->link != NULL && p->link->ver < num)
+
+    while (p != NULL && p->ver < num)
     {
+        prev = p;
         p = p->link;
         i++;
     }
-    if (i == 0 && p->ver > num)
+
+    // If it's the first node to be inserted at the beginning of the list
+    if (prev == NULL)
     {
-        temp->link = p->link;
-        p->link = temp;
-        return G[num % 10];
+        temp->link = G[num % 10];
+        G[num % 10] = temp;
     }
+    else
+    {
+        // Insert in the middle or end
+        temp->link = prev->link;
+        prev->link = temp;
+    }
+
+    return G[num % 10];
 }
 
 void print(struct edge *G[])
@@ -105,11 +120,14 @@ int main()
             printf("Enter key to search: ");
             scanf("%d", &num);
             struct edge *k = search(arr[num % 10], num);
-            k ? printf("\nElement found %d", k->ver) : printf("Element not found;");
+            k ? printf("\nElement found %d", k->ver) : printf("Element not found");
             break;
         case 4:
             exit(0);
             break;
+        default:
+            printf("Invalid choice!\n");
         }
     }
+    return 0;
 }
