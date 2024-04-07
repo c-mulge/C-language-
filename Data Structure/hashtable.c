@@ -23,6 +23,11 @@ int search(int arr[], int key)
     }
 }
 
+int rehash(int index)
+{
+    return (index + 1) % 10;
+}
+
 int main()
 {
     int arr[10];
@@ -59,7 +64,7 @@ int main()
                     }
                     else
                     {
-                        ch = hash(ch + 1);
+                        ch = rehash(ch);
                     }
                 }
             }
@@ -74,7 +79,15 @@ int main()
             printf("Enter searching element: ");
             scanf("%d", &num);
             int k = search(arr, num);
-            k ? printf("Element found %d", k) : printf("Element not found");
+            if (k == -1)
+            {
+                printf("Element is not present");
+            }
+            else
+            {
+                printf("Element is present", k);
+            }
+            // k ? printf("Element:%d is present", k) : printf("Element is not present");
             break;
         case 4:
             exit(0);
