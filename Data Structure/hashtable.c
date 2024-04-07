@@ -9,6 +9,11 @@ int hash(int n)
     return n % 10;
 }
 
+int rehash(int n)
+{
+    return (n + 1) % 10;
+}
+
 int search(int arr[], int key)
 {
     int ch = hash(key);
@@ -17,15 +22,10 @@ int search(int arr[], int key)
         if (arr[ch] == key)
             return arr[ch];
         else if (arr[ch] != -1)
-            ch = hash(ch + 1);
+            ch = rehash(ch);
         else
             return -1;
     }
-}
-
-int rehash(int index)
-{
-    return (index + 1) % 10;
 }
 
 int main()
@@ -85,7 +85,7 @@ int main()
             }
             else
             {
-                printf("Element is present", k);
+                printf("Element %d is present", num);
             }
             // k ? printf("Element:%d is present", k) : printf("Element is not present");
             break;
